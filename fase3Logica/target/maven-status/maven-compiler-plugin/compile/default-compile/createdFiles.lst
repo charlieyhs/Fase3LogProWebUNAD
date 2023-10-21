@@ -1,0 +1,6 @@
+com\co\DTO\ProductoDTO.class
+com\co\DTO\PersonaDTO.class
+com\co\DTO\ExportacionDTO.class
+com\co\DTO\TasaConversionDTO.class
+com\co\logica\FaseTresUI.class
+com\co\servicios\ExportarSvc.class

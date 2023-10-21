@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Fase 3</title>
+    </h:head>
+
+    <h:body>
+    	<h:form id="formLogin">
+            <h1>Beautiful Flowers</h1>
+            <h:panelGroup id="pnlLogin" style="width: 95%">
+                <p:staticMessage severity="#{faseTresUI.severity}" 
+                                 summary="INFO" 
+                                 detail="#{faseTresUI.mensaje}" 
+                                 rendered="#{not empty faseTresUI.mensaje}" 
+                                 style="width: 100%"/>
+                
+                <p:panelGrid id="pGridLogin" columns="2" layout="grid">
+                    <p:outputLabel id="lblProducto" value="Producto:"/>
+                    <p:selectOneMenu id="listProductos" value="#{faseTresUI.producto.nombre}">
+                        <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                        <f:selectItems var="producto" value="#{faseTresUI.productos}"
+                                       itemLabel="#{producto}"
+                                       itemValue="#{producto}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel id="lblcantidad" value="Cantidad:"/>
+                    <p:inputNumber id="inputCantidad" value="#{faseTresUI.producto.cantidad}"/>
+                    
+                    <p:outputLabel id="lblPeso" value="Peso: "/>
+                    <p:inputNumber id="inputPeso" value="#{faseTresUI.producto.peso}"/>
+                    
+                    <p:outputLabel id="lblciudadorigen" value="Ciudad Origen: "/>
+                    <p:selectOneMenu id="listCiudadOrigen" value="#{faseTresUI.producto.ciudadOrigen}">
+                        <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                        <f:selectItems var="ciuOri" value="#{faseTresUI.mapaCiudades.keySet()}"
+                                       itemLabel="#{faseTresUI.mapaCiudades.get(ciuOri)}"
+                                       itemValue="#{ciuOri}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel id="lbldetino" value="Ciudad Destino: "/>
+                    <p:selectOneMenu id="listDestino" value="#{faseTresUI.producto.ciudadDestino}">
+                        <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                        <f:selectItems var="ciuDes" value="#{faseTresUI.mapaCiudades.keySet()}"
+                                       itemLabel="#{faseTresUI.mapaCiudades.get(ciuDes)}"
+                                       itemValue="#{ciuDes}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Agregar" 
+                                   action="#{faseTresUI.agregarProducto()}" 
+                                   update="@form"
+                                   process="@form:pGridLogin"/>
+                    
+                </p:panelGrid>
+                <h:panelGroup id="pnlTable" rendered="#{not empty faseTresUI.productosExportar}">
+                    <p:dataTable id="tableProductos"
+                             style="margin-top: 10px;"
+                             value="#{faseTresUI.productosExportar}" var="prod">
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{prod.nombre}"/>
+                        </p:column>              
+                        <p:column headerText="Cantidad">
+                            <p:outputLabel value="#{prod.cantidad}"/>
+                        </p:column>
+                        <p:column headerText="Peso">
+                            <p:outputLabel value="#{prod.peso}"/>
+                        </p:column>
+                        <p:column headerText="Ciudad Origen">
+                            <p:outputLabel value="#{prod.ciudadOrigen}"/>
+                        </p:column>
+                        <p:column headerText="Ciudad Destino">
+                            <p:outputLabel value="#{prod.ciudadDestino}"/>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    <p:commandButton value="Exportar"
+                                     style="margin-top: 10px;"
+                                     action="#{faseTresUI.exportar()}" 
+                                     update="@form"/>
+                    
+                </h:panelGroup>
+                
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
