@@ -30,10 +30,14 @@ public class PersonaDTO {
     /**
      * Metodo encargado de calcular la edad de la persona dependiendo de la fecha de nacimiento
      * @return la edad actual de la persona
+     * @throws java.lang.Exception
      **/
-    public int calcularEdad(){
+    public int calcularEdad()throws Exception{
+        if(nombre == null || nombre.trim().equals("")){
+            throw new Exception("La Persona debe tener nombre");
+        }
         if(fechaNacimiento == null){
-            return 0;
+            throw new Exception("La Persona " + nombre + " No tiene una fecha de nacimiento.");
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");                           
         int nacimiento = Integer.parseInt(sdf.format(fechaNacimiento));                            
